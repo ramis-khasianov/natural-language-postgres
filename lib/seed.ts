@@ -1,15 +1,22 @@
-import { sql } from '@vercel/postgres';
-import fs from 'fs';
-import csv from 'csv-parser';
-import path from 'path';
-import "dotenv/config"
+import { sql } from "@vercel/postgres";
+import fs from "fs";
+import csv from "csv-parser";
+import path from "path";
+import "dotenv/config";
 
 function parseDate(dateString: string): string {
-  const parts = dateString.split('/');
+  const parts = dateString.split("/");
   if (parts.length === 3) {
-    const day = parts[0].padStart(2, '0');
-    const month = parts[1].padStart(2, '0');
-    const year = parts[2];
+    const day = parts[0].padStart(2, "0");
+    const month = parts[1].padStart(2, "0");
+    let year = parts[2];
+    
+    // Handle 2-digit years (assume 20xx for years < 50, 19xx for years >= 50)
+    if (year.length === 2) {
+      const yearNum = parseInt(year, 10);
+      year = yearNum < 50 ? `20${year}` : `19${year}`;
+    }
+    
     return `${year}-${month}-${day}`;
   }
   console.warn(`Could not parse date: ${dateString}`);
@@ -33,29 +40,30 @@ export async function seed() {
   console.log(`Created "unicorns" table`);
 
   const results: any[] = [];
-  const csvFilePath = path.join(process.cwd(), 'unicorns.csv');
+  const csvFilePath = path.join(process.cwd(), "unicorns.csv");
 
   await new Promise((resolve, reject) => {
     fs.createReadStream(csvFilePath)
-      .pipe(csv())
-      .on('data', (data) => results.push(data))
-      .on('end', resolve)
-      .on('error', reject);
+      .pipe(csv({ separator: ";" }))
+      .on("data", (data) => results.push(data))
+      .on("end", resolve)
+      .on("error", reject);
   });
 
   for (const row of results) {
-    const formattedDate = parseDate(row['Date Joined']);
+    console.log(row);
+    const formattedDate = parseDate(row["Date Joined"]);
 
     await sql`
       INSERT INTO unicorns (company, valuation, date_joined, country, city, industry, select_investors)
       VALUES (
         ${row.Company},
-        ${parseFloat(row['Valuation ($B)'].replace('$', '').replace(',', ''))},
+        ${parseFloat(row["Valuation ($B)"].replace("$", "").replace(",", ""))},
         ${formattedDate},
         ${row.Country},
         ${row.City},
         ${row.Industry},
-        ${row['Select Investors']}
+        ${row["Select Investors"]}
       )
       ON CONFLICT (company) DO NOTHING;
     `;
@@ -68,6 +76,5 @@ export async function seed() {
     unicorns: results,
   };
 }
-
 
 seed().catch(console.error);

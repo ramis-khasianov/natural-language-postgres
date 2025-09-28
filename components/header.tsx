@@ -2,9 +2,15 @@ import { Moon, Sun } from "lucide-react";
 import { DeployButton } from "./deploy-button";
 import { Button } from "./ui/button";
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 export const Header = ({ handleClear }: { handleClear: () => void }) => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="flex items-center justify-between mb-6">
@@ -20,7 +26,9 @@ export const Header = ({ handleClear }: { handleClear: () => void }) => {
           size="icon"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
-          {theme === "dark" ? (
+          {!mounted ? (
+            <div className="h-5 w-5" />
+          ) : theme === "dark" ? (
             <Moon className="h-5 w-5" />
           ) : (
             <Sun className="h-5 w-5" />
