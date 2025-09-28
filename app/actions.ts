@@ -10,7 +10,7 @@ export const generateQuery = async (input: string) => {
   "use server";
   try {
     const result = await generateObject({
-      model: openai("gpt-4o"),
+      model: openai("gpt-4o-mini"),
       system: `You are a SQL (postgres) and data visualization expert. Your job is to help the user write a SQL query to retrieve the data they need. The table schema is as follows:
 
       unicorns (
@@ -88,7 +88,7 @@ export const runGenerateSQLQuery = async (query: string) => {
   } catch (e: any) {
     if (e.message.includes('relation "unicorns" does not exist')) {
       console.log(
-        "Table does not exist, creating and seeding it with dummy data now...",
+        "Table does not exist, creating and seeding it with dummy data now..."
       );
       // throw error
       throw Error("Table does not exist");
@@ -104,7 +104,7 @@ export const explainQuery = async (input: string, sqlQuery: string) => {
   "use server";
   try {
     const result = await generateObject({
-      model: openai("gpt-4o"),
+      model: openai("gpt-4o-mini"),
       schema: z.object({
         explanations: explanationsSchema,
       }),
@@ -141,14 +141,14 @@ export const explainQuery = async (input: string, sqlQuery: string) => {
 
 export const generateChartConfig = async (
   results: Result[],
-  userQuery: string,
+  userQuery: string
 ) => {
   "use server";
   const system = `You are a data visualization expert. Always provide title, description, and takeaway in Russian language. `;
 
   try {
     const { object: config } = await generateObject({
-      model: openai("gpt-4o"),
+      model: openai("gpt-4o-mini"),
       system,
       prompt: `Given the following data from a SQL query result, generate the chart config that best visualises the data and answers the users query.
       For multiple groups use multi-lines.
