@@ -10,6 +10,7 @@ import {
 import { Config, Result } from "@/lib/types";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { ProjectInfo } from "@/components/project-info";
 import { Results } from "@/components/results";
 import { SuggestedQueries } from "@/components/suggested-queries";
 import { QueryViewer } from "@/components/query-viewer";
@@ -151,6 +152,7 @@ export default function Page() {
               </div>
             </div>
           </div>
+          <ProjectInfo />
         </motion.div>
       </div>
     </div>

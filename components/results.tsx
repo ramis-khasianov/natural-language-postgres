@@ -10,6 +10,9 @@ import {
   Table,
 } from "./ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Button } from "./ui/button";
+import { Download } from "lucide-react";
+import * as XLSX from 'xlsx';
 
 export const Results = ({
   results,
@@ -27,6 +30,13 @@ export const Results = ({
         index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word,
       )
       .join(" ");
+  };
+
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(results);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Результаты");
+    XLSX.writeFile(workbook, "unicorn_data.xlsx");
   };
 
   const formatCellValue = (column: string, value: any) => {
@@ -56,17 +66,23 @@ export const Results = ({
   return (
     <div className="flex-grow flex flex-col">
       <Tabs defaultValue="table" className="w-full flex-grow flex flex-col">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="table">Таблица</TabsTrigger>
-          <TabsTrigger
-            value="charts"
-            disabled={
-              Object.keys(results[0] || {}).length <= 1 || results.length < 2
-            }
-          >
-            График
-          </TabsTrigger>
-        </TabsList>
+        <div className="flex items-center justify-between mb-4">
+          <TabsList className="grid grid-cols-2 w-fit">
+            <TabsTrigger value="table">Таблица</TabsTrigger>
+            <TabsTrigger
+              value="charts"
+              disabled={
+                Object.keys(results[0] || {}).length <= 1 || results.length < 2
+              }
+            >
+              График
+            </TabsTrigger>
+          </TabsList>
+          <Button onClick={exportToExcel} variant="outline" size="sm">
+            <Download className="h-4 w-4 mr-2" />
+            Экспорт в Excel
+          </Button>
+        </div>
         <TabsContent value="table" className="flex-grow">
           <div className="sm:min-h-[10px] relative">
             <Table className="min-w-full divide-y divide-border">

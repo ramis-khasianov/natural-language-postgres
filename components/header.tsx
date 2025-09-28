@@ -17,7 +17,7 @@ export const Header = ({ handleClear }: { handleClear: () => void }) => {
         className="text-2xl sm:text-3xl font-bold text-foreground flex items-center cursor-pointer"
         onClick={() => handleClear()}
       >
-        Умный PostgreSQL
+        КХД Ассистент
       </h1>
       <div className="flex items-center justify-center space-x-2">
         <Button
