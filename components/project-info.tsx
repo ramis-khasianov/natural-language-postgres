@@ -9,7 +9,7 @@ export const ProjectInfo = () => {
       <Alert className="bg-muted text-muted-foreground border-0">
         <Info className="h-4 w-4 text-primary" />
         <AlertDescription>
-          This application uses the{" "}
+          Это приложение использует{" "}
           <Link
             target="_blank"
             className="text-primary hover:text-primary/90 underline"
@@ -17,9 +17,9 @@ export const ProjectInfo = () => {
           >
             AI SDK
           </Link>{" "}
-          to allow you to query a PostgreSQL database with natural language. The
-          dataset is CB Insights&apos; list of all unicorn companies. Learn more
-          at{" "}
+          для выполнения запросов к базе данных PostgreSQL на естественном языке.
+          Набор данных - это список всех компаний-единорогов от CB Insights. Узнать больше
+          на{" "}
           <Link
             href="https://www.cbinsights.com/research-unicorn-companies"
             target="_blank"

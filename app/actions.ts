@@ -108,7 +108,7 @@ export const explainQuery = async (input: string, sqlQuery: string) => {
       schema: z.object({
         explanations: explanationsSchema,
       }),
-      system: `You are a SQL (postgres) expert. Your job is to explain to the user write a SQL query you wrote to retrieve the data they asked for. The table schema is as follows:
+      system: `You are a SQL (postgres) expert. Your job is to explain to the user write a SQL query you wrote to retrieve the data they asked for. IMPORTANT: Provide all explanations in Russian language. The table schema is as follows:
     unicorns (
       id SERIAL PRIMARY KEY,
       company VARCHAR(255) NOT NULL UNIQUE,
@@ -124,7 +124,7 @@ export const explainQuery = async (input: string, sqlQuery: string) => {
     If a section doesnt have any explanation, include it, but leave the explanation empty.
 
     `,
-      prompt: `Explain the SQL query you generated to retrieve the data the user wanted. Assume the user is not an expert in SQL. Break down the query into steps. Be concise.
+      prompt: `Explain the SQL query you generated to retrieve the data the user wanted. Assume the user is not an expert in SQL. Break down the query into steps. Be concise. IMPORTANT: Provide all explanations in Russian language.
 
       User Query:
       ${input}
@@ -144,7 +144,7 @@ export const generateChartConfig = async (
   userQuery: string,
 ) => {
   "use server";
-  const system = `You are a data visualization expert. `;
+  const system = `You are a data visualization expert. Always provide title, description, and takeaway in Russian language. `;
 
   try {
     const { object: config } = await generateObject({
@@ -153,9 +153,14 @@ export const generateChartConfig = async (
       prompt: `Given the following data from a SQL query result, generate the chart config that best visualises the data and answers the users query.
       For multiple groups use multi-lines.
 
+      IMPORTANT: All text fields (title, description, takeaway) must be in Russian language.
+
       Here is an example complete config:
       export const chartConfig = {
         type: "pie",
+        title: "Продажи по месяцам", // Title in Russian
+        description: "График показывает распределение продаж", // Description in Russian  
+        takeaway: "Наибольшие продажи в декабре", // Takeaway in Russian
         xKey: "month",
         yKeys: ["sales", "profit", "expenses"],
         colors: {

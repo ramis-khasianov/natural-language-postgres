@@ -10,7 +10,6 @@ import {
 import { Config, Result } from "@/lib/types";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { ProjectInfo } from "@/components/project-info";
 import { Results } from "@/components/results";
 import { SuggestedQueries } from "@/components/suggested-queries";
 import { QueryViewer } from "@/components/query-viewer";
@@ -40,7 +39,7 @@ export default function Page() {
     try {
       const query = await generateQuery(question);
       if (query === undefined) {
-        toast.error("An error occurred. Please try again.");
+        toast.error("Произошла ошибка. Пожалуйста, попробуйте снова.");
         setLoading(false);
         return;
       }
@@ -129,14 +128,14 @@ export default function Page() {
                           <Loader2 className="h-12 w-12 animate-spin text-muted-foreground" />
                           <p className="text-foreground">
                             {loadingStep === 1
-                              ? "Generating SQL query..."
-                              : "Running SQL query..."}
+                              ? "Генерация SQL запроса..."
+                              : "Выполнение SQL запроса..."}
                           </p>
                         </div>
                       ) : results.length === 0 ? (
                         <div className="flex-grow flex items-center justify-center">
                           <p className="text-center text-muted-foreground">
-                            No results found.
+                            Результаты не найдены.
                           </p>
                         </div>
                       ) : (
@@ -152,7 +151,6 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <ProjectInfo />
         </motion.div>
       </div>
     </div>

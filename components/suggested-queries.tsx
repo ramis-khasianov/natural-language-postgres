@@ -8,52 +8,52 @@ export const SuggestedQueries = ({
 }) => {
   const suggestionQueries = [
     {
-      desktop: "Compare count of unicorns in SF and NY over time",
-      mobile: "SF vs NY",
+      desktop: "Сравните количество единорогов в Сан-Франциско и Нью-Йорке во времени",
+      mobile: "СФ против НЙ",
     },
     {
-      desktop: "Compare unicorn valuations in the US vs China over time",
-      mobile: "US vs China",
+      desktop: "Сравните оценки единорогов в США и Китае во времени",
+      mobile: "США против Китая",
     },
     {
-      desktop: "Countries with highest unicorn density",
-      mobile: "Top countries",
-    },
-    {
-      desktop:
-        "Show the number of unicorns founded each year over the past two decades",
-      mobile: "Yearly count",
-    },
-    {
-      desktop: "Display the cumulative total valuation of unicorns over time",
-      mobile: "Total value",
+      desktop: "Страны с наибольшей плотностью единорогов",
+      mobile: "Топ страны",
     },
     {
       desktop:
-        "Compare the yearly funding amounts for fintech vs healthtech unicorns",
-      mobile: "Fintech vs health",
+        "Покажите количество единорогов, основанных каждый год за последние два десятилетия",
+      mobile: "Годовой подсчет",
     },
     {
-      desktop: "Which cities have with most SaaS unicorns",
-      mobile: "SaaS cities",
-    },
-    {
-      desktop: "Show the countries with highest unicorn density",
-      mobile: "Dense nations",
+      desktop: "Отобразите совокупную общую оценку единорогов во времени",
+      mobile: "Общая стоимость",
     },
     {
       desktop:
-        "Show the number of unicorns (grouped by year) over the past decade",
-      mobile: "Decade trend",
+        "Сравните годовые объемы финансирования для единорогов финтех против медтех",
+      mobile: "Финтех против мед",
+    },
+    {
+      desktop: "Какие города имеют больше всего SaaS единорогов",
+      mobile: "SaaS города",
+    },
+    {
+      desktop: "Покажите страны с наибольшей плотностью единорогов",
+      mobile: "Плотные нации",
     },
     {
       desktop:
-        "Compare the average valuation of AI companies vs. biotech companies",
-      mobile: "AI vs biotech",
+        "Покажите количество единорогов (сгруппированных по годам) за последнее десятилетие",
+      mobile: "Тренд десятилетия",
     },
     {
-      desktop: "Investors with the most unicorns",
-      mobile: "Top investors",
+      desktop:
+        "Сравните среднюю оценку AI компаний против биотех компаний",
+      mobile: "ИИ против биотех",
+    },
+    {
+      desktop: "Инвесторы с наибольшим количеством единорогов",
+      mobile: "Топ инвесторы",
     },
   ];
 
@@ -67,7 +67,7 @@ export const SuggestedQueries = ({
       className="h-full overflow-y-auto"
     >
       <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-4">
-        Try these queries:
+        Попробуйте эти запросы:
       </h2>
       <div className="flex flex-wrap gap-2">
         {suggestionQueries.map((suggestion, index) => (

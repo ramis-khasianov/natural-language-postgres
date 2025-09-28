@@ -44,8 +44,8 @@ export const QueryViewer = ({
                   queryExplanations={queryExplanations}
                 />
                 <p className="font-sans mt-4 text-base">
-                  Generated explanation! Hover over different parts of the SQL
-                  query to see explanations.
+                  Объяснение сгенерировано! Наведите курсор на различные части SQL
+                  запроса, чтобы увидеть объяснения.
                 </p>
               </>
             ) : (
@@ -56,7 +56,7 @@ export const QueryViewer = ({
                   size="icon"
                   onClick={handleExplainQuery}
                   className="h-fit hover:text-muted-foreground hidden sm:inline-block"
-                  aria-label="Explain query"
+                  aria-label="Объяснить запрос"
                   disabled={loadingExplanation}
                 >
                   {loadingExplanation ? (
@@ -82,7 +82,7 @@ export const QueryViewer = ({
           onClick={() => setQueryExpanded(true)}
           className="absolute inset-0 h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
         >
-          Show full query
+          Показать полный запрос
         </Button>
       )}
     </div>
